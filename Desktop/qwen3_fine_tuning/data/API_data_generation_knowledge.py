@@ -68,7 +68,7 @@ Now please **directly generate only one sample** based on your observation of th
 # **Make the user intention NOT CLEAR with 最后一次用户输入. It can ONLY be identified with information from 智能助手和用户的对话历史, due to pronouns for example.**
 
 gpt_api_llm = ChatOpenAI(
-    model = "gpt-4.1",
+    model = "gpt-5-chat-latest",
     temperature = 1.2,
     api_key = OPENAI_API_KEY,
     base_url = "https://api.openai.com/v1"
@@ -95,12 +95,12 @@ prompt_template = ChatPromptTemplate.from_messages(
         ("human", "{prompt}"),
     ]
 )
-chain = prompt_template | gpt_api_llm | StrOutputParser()
+# chain = prompt_template | gpt_api_llm | StrOutputParser()
 # chain = prompt_template | qwen_api_llm | StrOutputParser()
-# chain = prompt_template | glm_api_llm| StrOutputParser() #
+chain = prompt_template | glm_api_llm| StrOutputParser() #
 
 # Start to generate
-n = 10 # number of sample to generate
+n = 15 # number of sample to generate
 
 with open("LoRA_samples_knowledge_temp.jsonl", "a", encoding="utf-8") as f:
     for i in range(n):
@@ -109,4 +109,3 @@ with open("LoRA_samples_knowledge_temp.jsonl", "a", encoding="utf-8") as f:
         f.write(resp + "\n")
         print(f"Finished processing {i + 1}/{n} input")
         print(resp)
-

@@ -67,3 +67,11 @@ LoRA = Modular Fine‑Tuning (like plugins for your model). It keeps the base mo
 - Composability 
 - Version control
 - Safe experimentation
+
+data generation model: 
+- 40%: GLM-4.7, flagship language model from Zhipu, deliver both diversity and accuracy
+- 20%: GPT-4.1, most advance non-reasoning model from OpenAI - easy to generate repetitive patterns, also some non accuracy that needs manual check, but sometimes have good ones
+- 20%: Gemini, 
+- 10%: Qwen-max,
+- 5%: GPT-5,
+- 5%: Qwen-Plus
