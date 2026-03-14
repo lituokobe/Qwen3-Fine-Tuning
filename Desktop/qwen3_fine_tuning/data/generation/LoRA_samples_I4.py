@@ -34,7 +34,7 @@ I have prepared some example samples of the training data for fine-tuning, and r
 
 ### 3. "content" of "user":
   - A long string that includes all the instruction and chat history. It serves as the features in the training.
-  - The topic is always about assistant introducing/inviting the user to join a **large commercial event in any industry**. The event is always about many brands/companies, **can happen only in medium or small cities in China**.
+  - The topic is always about assistant introducing/inviting the user to join a **large commercial event in any industry**. The event is always about many brands/companies, **can happen only in medium or small cities in China, EXCEPT Nanchang and Suzhou**.
   - For the 1st section "## === 你的角色描述和背景信息（仅供参考） ===", it is the introduction of the assistant role and the task. It can be empty or incomplete, as this info in real practice is provided by the clients.
   - For the 2nd section from "## === 你的核心任务（必须遵守） ===" all the way to "**注意**：只能输出一个最匹配的意图id，不得组合或输出多个", they are exactly the same across the samples, as you can tell from the examples. Never to put any efforts here, just directly copy-paste.
   - For the 3rd section of the bullet points under "**【意图库列表】**（- 意图id : 意图名称 - 意图说明）" and "**【知识库列表】**（- 意图id : 意图名称 - 意图说明）", they are the intention options for the model to infer from. 
@@ -44,7 +44,7 @@ I have prepared some example samples of the training data for fine-tuning, and r
   - For the 4th section of "### **最后一次用户输入**" and "### 智能助手和用户的对话历史（务必参考）", the former is the core for the intention reference, the latter provides the context of 3-5 rounds of chat history between the assistant and the user.
     Though the intention is directly inferred from 最后一次用户输入, it is recommended to use the context provided by 智能助手和用户的对话历史 for the inference as well as it includes the definition of pronouns. 
     **User messages in the conversation should NOT be too long**, as this is a conversation of a cold call.
-    # **Make the user intention to be rude or disrespecting to the assistant, but the intention is not covered by all the options (`intention_id` is "others").**
+    # **Make the user use vulgar language filled with sexual innuendos and have intention to flirt with or sexually harass the assistant, but the intention is not covered by all the options (`intention_id` is "others")..**
     **Please BE CREATIVE for generating this section as well, so long as the conversation is reasonable for the topic.**
   - For the last section from "### 输出示例：" to "现在，请严格按照上述规则输出结果", they are exactly the same across the samples too, as you can tell from the examples. Never put any efforts here, just directly copy-paste.
 
@@ -60,6 +60,7 @@ Now please **directly generate only one sample** based on your observation of th
   - NO EXTRA SPACING
   - NO EXTRA WORDS OR CONVERSATION
 """
+# **Make the user intention to be rude, disrespecting or even cursing with dirty words to the assistant, but the intention is not covered by all the options (`intention_id` is "others").**
 
 gpt_api_llm = ChatOpenAI(
     model = "gpt-4.1",
@@ -102,7 +103,7 @@ chain = prompt_template | gpt_api_llm | StrOutputParser()
 # chain = prompt_template | kimi_api_llm | StrOutputParser()
 
 # Start to generate
-n = 305 # number of sample to generate
+n = 24 # number of sample to generate
 
 with open("LoRA_samples_I4.jsonl", "a", encoding="utf-8") as f:
     for i in range(n):

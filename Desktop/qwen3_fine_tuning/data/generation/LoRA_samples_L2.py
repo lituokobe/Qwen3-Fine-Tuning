@@ -103,7 +103,7 @@ chain = prompt_template | glm_api_llm | StrOutputParser()
 # chain = prompt_template | kimi_api_llm | StrOutputParser()
 
 # Start to generate
-n = 335 # number of sample to generate
+n = 240 # number of sample to generate
 
 with open("LoRA_samples_L2.jsonl", "a", encoding="utf-8") as f:
     for i in range(n):

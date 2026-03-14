@@ -10,6 +10,7 @@ ALI_API_KEY = os.getenv("ALI_API_KEY") or ""
 GLM_API_KEY = os.getenv("GLM_API_KEY") or ""
 KIMI_API_KEY = os.getenv("KIMI_API_KEY") or ""
 
+
 prompt = """
 I am building a customer service AI agent. I will use a small model to identify user's intention in the conversation, but it needs to be fine-tuned for this task. 
 I have prepared some example samples of the training data for fine-tuning, and rules to for generating the samples. Now I need your help to generate another sample.
@@ -44,7 +45,7 @@ I have prepared some example samples of the training data for fine-tuning, and r
   - For the 4th section of "### **最后一次用户输入**" and "### 智能助手和用户的对话历史（务必参考）", the former is the core for the intention reference, the latter provides the context of 3-5 rounds of chat history between the assistant and the user.
     Though the intention is directly inferred from 最后一次用户输入, it is recommended to use the context provided by 智能助手和用户的对话历史 for the inference as well as it includes the definition of pronouns. 
     **User messages in the conversation should NOT be too long**, as this is a conversation of a cold call.
-    # **Make the user intention relevant to the topic and covered by an option from 知识库列表，and it is a common intention.**
+    # **Make the user intention relevant to the topic and covered by an option from 知识库列表，and it is one of the common intentions: complaint, event guest asking who is the caller, product trials, saying their are the industry competitor, requesting human service.**
     **Please BE CREATIVE for generating this section as well, so long as the conversation is reasonable for the topic.**
   - For the last section from "### 输出示例：" to "现在，请严格按照上述规则输出结果", they are exactly the same across the samples too, as you can tell from the examples. Never put any efforts here, just directly copy-paste.
 
@@ -61,6 +62,7 @@ Now please **directly generate only one sample** based on your observation of th
   - NO EXTRA WORDS OR CONVERSATION
   - NO SENSITIVE INFORMATION
 """
+# **Make the user intention relevant to the topic and covered by an option from 知识库列表，and it is one of the common intentions: asking who is the caller, activity schedule inquery, product trials, saying their are the industry competitor, requesting human service, suspecting how to get their number, complaint, children activity/policy, event guest, event F&B, transportation inquery.**
 
 gpt_api_llm = ChatOpenAI(
     model = "gpt-4.1",
@@ -97,13 +99,13 @@ prompt_template = ChatPromptTemplate.from_messages(
         ("human", "{prompt}"),
     ]
 )
-# chain = prompt_template | gpt_api_llm | StrOutputParser()
+chain = prompt_template | gpt_api_llm | StrOutputParser()
 # chain = prompt_template | qwen_api_llm | StrOutputParser()
-chain = prompt_template | glm_api_llm | StrOutputParser()
+# chain = prompt_template | glm_api_llm | StrOutputParser()
 # chain = prompt_template | kimi_api_llm | StrOutputParser()
 
 # Start to generate
-n = 185 # number of sample to generate
+n = 20 # number of sample to generate
 
 with open("LoRA_samples_L7.jsonl", "a", encoding="utf-8") as f:
     for i in range(n):
