@@ -70,16 +70,14 @@ gpt_api_llm = ChatOpenAI(
 )
 
 qwen_api_llm = ChatOpenAI(
-    model = "qwen3-max-2026-01-23", # qwen3-max-preview generates same event or even the same content across different calls
+    model = "qwen3-max-2026-01-23",
     temperature = 1.4,
     api_key = ALI_API_KEY,
     base_url = "https://dashscope.aliyuncs.com/compatible-mode/v1"
 )
 
 glm_api_llm = ChatOpenAI(
-    # model = 'glm-5',
-    model = 'glm-4.7', # glm-4.7 generates diverse events, but needs indication in prompts to avoid always-first-tier-city
-    # model = 'glm-4.6',  # glm-4.6 keeps generate same event 上海国际车展
+    model = 'glm-4.7',
     temperature = 1.0,
     api_key = GLM_API_KEY,
     base_url = "https://open.bigmodel.cn/api/paas/v4",
@@ -103,7 +101,7 @@ chain = prompt_template | glm_api_llm | StrOutputParser()
 # chain = prompt_template | kimi_api_llm | StrOutputParser()
 
 # Start to generate
-n = 240 # number of sample to generate
+n = 236 # number of sample to generate
 
 with open("LoRA_samples_L2.jsonl", "a", encoding="utf-8") as f:
     for i in range(n):

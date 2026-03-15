@@ -44,7 +44,7 @@ I have prepared some example samples of the training data for fine-tuning, and r
   - For the 4th section of "### **最后一次用户输入**" and "### 智能助手和用户的对话历史（务必参考）", the former is the core for the intention reference, the latter provides the context of 3-5 rounds of chat history between the assistant and the user.
     Though the intention is directly inferred from 最后一次用户输入, it is recommended to use the context provided by 智能助手和用户的对话历史 for the inference as well as it includes the definition of pronouns. 
     **User messages in the conversation should NOT be too long**, as this is a conversation of a cold call.
-    # **Make the user intention relevant to the topic and covered by an option from 知识库列表，but it is NOT a common intention.**
+    # **Make the user intention relevant to the topic and covered by an option from 知识库列表，but it is NOT a common intention, e.g it should NOT be ticket/fee inquery, location inquery, parking inquery, date time inquery, brand inquery, children activity/policy, event guest, event F&B, product trials.**
     **Please BE CREATIVE for generating this section as well, so long as the conversation is reasonable for the topic.**
   - For the last section from "### 输出示例：" to "现在，请严格按照上述规则输出结果", they are exactly the same across the samples too, as you can tell from the examples. Never put any efforts here, just directly copy-paste.
 
@@ -70,16 +70,14 @@ gpt_api_llm = ChatOpenAI(
 )
 
 qwen_api_llm = ChatOpenAI(
-    model = "qwen3-max-preview", # qwen3-max-preview generates same event 深圳国际珠宝展
+    model = "qwen3-max-preview",
     temperature = 1.8,
     api_key = ALI_API_KEY,
     base_url = "https://dashscope.aliyuncs.com/compatible-mode/v1"
 )
 
 glm_api_llm = ChatOpenAI(
-    # model = 'glm-5',
-    model = 'glm-4.7', # glm-4.7 generates diverse events, but needs indication in prompts to avoid always-first-tier-city
-    # model = 'glm-4.6',  # glm-4.6 keeps generate same event 上海国际车展
+    model = 'glm-4.7',
     temperature = 1.0,
     api_key = GLM_API_KEY,
     base_url = "https://open.bigmodel.cn/api/paas/v4",
@@ -103,7 +101,7 @@ chain = prompt_template | glm_api_llm| StrOutputParser()
 # chain = prompt_template | kimi_api_llm | StrOutputParser()
 
 # Start to generate
-n = 485 # number of sample to generate
+n = 545 # number of sample to generate
 
 with open("LoRA_samples_K9.jsonl", "a", encoding="utf-8") as f:
     for i in range(n):

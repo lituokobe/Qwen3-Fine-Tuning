@@ -6,7 +6,7 @@ import json
 # print(test_json2["messages"][1]["content"])
 
 
-with open('/Users/lituokobe/Desktop/qwen3_fine_tuning/data/generation/LoRA_samples_K4.jsonl', 'r', encoding='utf-8') as file:
+with open('/Users/lituokobe/Desktop/qwen3_fine_tuning/data/generation/LoRA_samples_L4.jsonl', 'r', encoding='utf-8') as file:
     for line_num, line in enumerate(file, 1):
         try:
             data = json.loads(line.strip())
