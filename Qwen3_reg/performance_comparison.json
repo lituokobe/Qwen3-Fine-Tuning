@@ -1,0 +1,24 @@
+{
+  "base_model": {
+    "loss": 1.8264203071594238,
+    "perplexity": 6.211611270904541,
+    "accuracy": 76.75568743818002,
+    "correct": 776,
+    "total": 1011,
+    "valid_rate": 100.0
+  },
+  "lora_model": {
+    "loss": 0.11439050734043121,
+    "perplexity": 1.121189832687378,
+    "accuracy": 93.47181008902076,
+    "correct": 945,
+    "total": 1011,
+    "valid_rate": 100.0
+  },
+  "improvement": {
+    "loss_reduction": 0.9373690125476434,
+    "perplexity_reduction": 0.8195009662083845,
+    "accuracy_gain": 16.716122650840745,
+    "valid_rate_gain": 0.0
+  }
+}
