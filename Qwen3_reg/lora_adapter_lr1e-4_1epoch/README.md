@@ -1,64 +1,57 @@
 ---
-base_model: ./models/Qwen/Qwen3-4B-Instruct-2507
-library_name: peft
-pipeline_tag: text-generation
+license: apache-2.0
+language:
+- zh
+- en
+metrics:
+- accuracy
+base_model:
+- Qwen/Qwen3-4B-Instruct-2507
+pipeline_tag: text-classification
 tags:
-- base_model:adapter:./models/Qwen/Qwen3-4B-Instruct-2507
-- lora
-- transformers
+- agent
+- commercial
+- customer-engagement
 ---
 
-# Model Card for Model ID
-
-<!-- Provide a quick summary of what the model is/does. -->
-
+# Model Card for Qwen3-4B-Instruct-2507-LoRA-Intent-Classifier
+Identify user intention in multi-turn conversations for AI-driven client engagement.
 
 
 ## Model Details
 
 ### Model Description
+This repository contains a LoRA (Low-Rank Adaptation) adapter fine-tuned on top of the base model [Qwen3-4B-Instruct-2507](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507)for user intent classification.
 
-<!-- Provide a longer summary of what this model is. -->
+The model is designed to analyze the latest user utterance within a conversation and classify it into a predefined set of intention categories. These categories are customizable and defined by business users (e.g., sales or customer service managers).
+
+The adapter is lightweight and intended to be merged with the base model at inference time.
 
 
-
-- **Developed by:** [More Information Needed]
-- **Funded by [optional]:** [More Information Needed]
-- **Shared by [optional]:** [More Information Needed]
-- **Model type:** [More Information Needed]
-- **Language(s) (NLP):** [More Information Needed]
-- **License:** [More Information Needed]
-- **Finetuned from model [optional]:** [More Information Needed]
-
-### Model Sources [optional]
-
-<!-- Provide the basic links for the model. -->
-
-- **Repository:** [More Information Needed]
-- **Paper [optional]:** [More Information Needed]
-- **Demo [optional]:** [More Information Needed]
+- **Developed by:** [Li Tuo](https://github.com/lituokobe)
+- **Model type:** Causal Language Model (LLM) with LoRA adapter for classification
+- **Language(s) (NLP):** Chinese (primary), English (partial support)
+- **License:** Apache-2.0
+- **Finetuned from model:** [Qwen3-4B-Instruct-2507](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507)
 
 ## Uses
 
-<!-- Address questions around how the model is intended to be used, including the foreseeable users of the model and those affected by the model. -->
+This model is intended to be used as a self-hosted intent classification module within AI-powered customer engagement systems, such as:
+
+- AI marketing agents 
+- Customer service chatbots 
+- Phone call automation systems
+
+It is a core component of the project:
+👉 [AI CS agent generator](https://github.com/lituokobe/AI-CS-Agent)
 
 ### Direct Use
 
-<!-- This section is for the model use without fine-tuning or plugging into a larger ecosystem/app. -->
+Given a prompt that includes customized intention classes and a multi-turn conversation, the model:
 
-[More Information Needed]
-
-### Downstream Use [optional]
-
-<!-- This section is for the model use when fine-tuned for a task, or when plugged into a larger ecosystem/app -->
-
-[More Information Needed]
-
-### Out-of-Scope Use
-
-<!-- This section addresses misuse, malicious use, and uses that the model will not work well for. -->
-
-[More Information Needed]
+- Focuses on the latest user input 
+- Extracts a structured intent label 
+- Outputs a predefined intent ID
 
 ## Bias, Risks, and Limitations
 
